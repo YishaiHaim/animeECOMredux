@@ -1,50 +1,52 @@
 import React, { useState, useEffect } from "react";
 
-/* REACT ROUTER */
+/* react router */
 import { Link } from "react-router-dom";
 
-/* REACT BOOTSTRAP */
+/* react bootstrap */
 import { Row, Col, Button, Form } from "react-bootstrap";
 
-/* COMPONENTS */
+/* components */
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
 
-/* REACT - REDUX */
+/* react redux */
 import { useDispatch, useSelector } from "react-redux";
 
-/* ACTION CREATORS */
+/* action creators */
 import { login } from "../actions/userActions";
 
 function LoginScreen({ location, history }) {
-  /* STATE */
+  /* usestates */
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
 
   const dispatch = useDispatch();
 
-  /* SETTING UP REDIRECT */
+  /* redirect setup */
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
-  /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
+/* pull a partial state from the state in redux store */ 
   const userLogin = useSelector((state) => state.userLogin);
 
   const { userInfo, loading, error } = userLogin;
 
-  /* REDIRECTING AN ALREADY LOGGED IN USER, AS WE DON'T WANT THEM TO SEE THE LOGIN PAGE */
+ 
+  /* redirects an already loggen in user to the homepage */
   useEffect(() => {
     if (userInfo) {
       history.push(redirect);
     }
   }, [history, userInfo, redirect]);
 
-  /* HANDLERS */
+  /* handlers */
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    /* FIRING OFF THE ACTION CREATORS USING DISPATCH FOR LOGIN */
+    
+    /* dispatches the action creator for login */
     dispatch(login(email, password));
   };
 

@@ -1,25 +1,25 @@
 import React, { useEffect } from "react";
 
-/* REACT ROUTER BOOTSTRAP */
+/* react router bootstrap */
 import { LinkContainer } from "react-router-bootstrap";
 
-/* REACT BOOTSTRAP */
+/* react bootstrap */
 import { Table, Button } from "react-bootstrap";
 
-/* COMPONENTS */
+/* components */
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 
-/* REACT - REDUX */
+/* react redux */
 import { useDispatch, useSelector } from "react-redux";
 
-/* ACTION CREATORS */
+/* action creators */
 import { listOrders } from "../actions/orderActions";
 
 function OrderListScreen({ history }) {
   const dispatch = useDispatch();
 
-  /* PULLING OUT STATE */
+  /* useselecter for orderlist state */
   const orderList = useSelector((state) => state.orderList);
   const { orders, loading, error } = orderList;
 
@@ -27,7 +27,8 @@ function OrderListScreen({ history }) {
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    // WE DON'T WANT NON ADMINS TO ACCESS THIS PAGE SO REDIRECT IF SOMEBODY TRIES TO
+
+    // admin validation= redirects non admins back to the login page
 
     if (userInfo && userInfo.isAdmin) {
       dispatch(listOrders());
@@ -36,7 +37,7 @@ function OrderListScreen({ history }) {
     }
   }, [dispatch, history, userInfo]);
 
-  /* HANDLER */
+  /* handler */
 
   return (
     <div>

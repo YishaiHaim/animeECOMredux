@@ -1,12 +1,12 @@
 import React from "react";
 
-/* REACT-BOOTSTRAP */
+/* react bootstrap */
 import { Card } from "react-bootstrap";
 
-/* REACT ROUTER */
+/* react router */
 import { Link } from "react-router-dom";
 
-/* COMPONENTS */
+/* components */
 import Rating from "./Rating";
 
 function Product({ product }) {
@@ -31,7 +31,7 @@ function Product({ product }) {
           />
         </Card.Text>
 
-        <Card.Text as="h3">₹{product.price}</Card.Text>
+        <Card.Text as="h3">${product.price}</Card.Text>
       </Card.Body>
     </Card>
   );

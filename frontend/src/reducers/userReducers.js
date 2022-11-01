@@ -1,4 +1,4 @@
-/* ACTION TYPES */
+/* action types */
 import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -28,7 +28,7 @@ import {
   USER_UPDATE_RESET,
 } from "../constants/userConstants";
 
-/* REDUCER USED IN USER LOGIN IN LoginScreen COMPONENT */
+/* this recuder is used at the USER LOGIN IN LoginScreen component */
 export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
@@ -49,14 +49,14 @@ export const userLoginReducer = (state = {}, action) => {
       };
 
     case USER_LOGOUT:
-      return {}; /* CLEARS STATE */
+      return {}; /* clear state */
 
     default:
       return state;
   }
 };
 
-/* REDUCER USED IN USER REGISTRATION IN RegisterScreen COMPONENT */
+/* this recuder is used at USER REGISTRATION IN RegisterScreen component */
 export const userRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
@@ -77,14 +77,14 @@ export const userRegisterReducer = (state = {}, action) => {
       };
 
     case USER_LOGOUT:
-      return {}; /* CLEARS STATE */
+      return {}; /* clear state */
 
     default:
       return state;
   }
 };
 
-/* REDUCER USED IN GETTING USER DETAILS IN ProfileScreen COMPONENT */
+/* this recuder is used at GETTING USER DETAILS IN ProfileScreen component */
 export const userDetailsReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case USER_DETAILS_REQUEST:
@@ -115,7 +115,7 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
   }
 };
 
-/* REDUCER USED IN UPDATING USER DETAILS IN ProfileScreen COMPONENT */
+/* this recuder is used at UPDATING USER DETAILS IN ProfileScreen component */
 export const userUpdateProfileReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_UPDATE_PROFILE_REQUEST:
@@ -144,7 +144,7 @@ export const userUpdateProfileReducer = (state = {}, action) => {
   }
 };
 
-/* REDUCER USED TO GET LIST OF USERS IN UserList SCREEN */
+/* this recuder is used to GET LIST OF USERS IN UserList screen */
 export const userListReducer = (state = { users: [] }, action) => {
   switch (action.type) {
     case USER_LIST_REQUEST:
@@ -172,7 +172,7 @@ export const userListReducer = (state = { users: [] }, action) => {
   }
 };
 
-/* REDUCER USED TO DELETE A USER FROM UserList SCREEN */
+/* this recuder is used to DELETE A USER FROM UserList screen */
 export const userDeleteReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_DELETE_REQUEST:
@@ -197,7 +197,7 @@ export const userDeleteReducer = (state = {}, action) => {
   }
 };
 
-/* REDUCER USED TO EDIT A USER IN UserEdit SCREEN */
+/* this recuder is used to EDIT A USER IN UserEdit screen */
 export const userUpdateReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case USER_UPDATE_REQUEST:

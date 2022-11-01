@@ -1,35 +1,36 @@
 import React, { useEffect } from "react";
 
-/* REACT ROUTER */
+/* react router*/
 import { Link } from "react-router-dom";
 
-/* REACT BOOTSTRAP */
+/* react bootstrap */
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 
-/* COMPONENTS */
+/* components */
 import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "../components/Message";
 
-/* REACT - REDUX */
+/* react redux */
 import { useDispatch, useSelector } from "react-redux";
 
-/* ACTION CREATORS */
+/* action creators */
 import { createOrder } from "../actions/orderActions";
 
-/* ACTION TYPES */
+/* action types*/
 import { ORDER_CREATE_RESET } from "../constants/orderConstants";
 
 function PlaceOrderScreen({ history }) {
   const dispatch = useDispatch();
 
-  /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
+  /* pull a partial state from the state in redux store */ 
   const orderCrate = useSelector((state) => state.orderCreate);
 
   const { order, error, success } = orderCrate;
 
   const cart = useSelector((state) => state.cart);
 
-  // PRICE CALCULATIONS, WE ARE SETTING AN ATTRIBUTE TO OUR CART OBJECT BUT IT WON'T UPDATE OUR STATE, IT'S JUST FOR THIS PAGE
+  
+  // price calculation, this method is relevant only to this screen (PlaceOrderScreen)
   cart.itemsPrice = cart.cartItems
     .reduce((acc, item) => acc + item.price * item.qty, 0)
     .toFixed(2);
@@ -44,12 +45,13 @@ function PlaceOrderScreen({ history }) {
     Number(cart.taxPrice)
   ).toFixed(2);
 
-  // REDIRECT
+  // redirects to PaymentMethod screen
   if (!cart.paymentMethod) {
     history.push("/payment");
   }
 
-  /* IF ORDER SUCCESSFULL AND WE HAVE ORDER ID, SEND USER TO USERS ACCOUNT TO VIEW THE ORDER */
+
+  /*redirects the user to the specific order that was made */
   useEffect(() => {
     if (success) {
       history.push(`/order/${order._id}`);
@@ -62,7 +64,7 @@ function PlaceOrderScreen({ history }) {
     // eslint-disable-next-line
   }, [success, history]);
 
-  // HANDLERS
+  // handlers
   const placeorder = () => {
     dispatch(
       createOrder({
@@ -130,7 +132,7 @@ function PlaceOrderScreen({ history }) {
                         </Col>
 
                         <Col md={4}>
-                          {item.qty} X ₹{item.price} = ₹
+                          {item.qty} X ${item.price} = $
                           {(item.qty * item.price).toFixed(2)}
                         </Col>
                       </Row>
@@ -153,7 +155,7 @@ function PlaceOrderScreen({ history }) {
                 <Row>
                   <Col>Items:</Col>
 
-                  <Col>₹{cart.itemsPrice}</Col>
+                  <Col>${cart.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
@@ -161,7 +163,7 @@ function PlaceOrderScreen({ history }) {
                 <Row>
                   <Col>Shipping:</Col>
 
-                  <Col>₹{cart.shippingPrice}</Col>
+                  <Col>${cart.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
@@ -169,7 +171,7 @@ function PlaceOrderScreen({ history }) {
                 <Row>
                   <Col>Tax:</Col>
 
-                  <Col>₹{cart.taxPrice}</Col>
+                  <Col>${cart.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
@@ -177,7 +179,7 @@ function PlaceOrderScreen({ history }) {
                 <Row>
                   <Col>Total:</Col>
 
-                  <Col>₹{cart.totalPrice}</Col>
+                  <Col>${cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
 

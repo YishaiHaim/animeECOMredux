@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 
-/* REACT ROUTER */
+/* react router */
 import { Link } from "react-router-dom";
 
-/* REACT BOOTSTRAP */
+/* react bootstrap */
 import {
   Row,
   Col,
@@ -14,23 +14,24 @@ import {
   Form,
 } from "react-bootstrap";
 
-/* COMPONENTS */
+/* components */
 import Message from "../components/Message";
 
-/* REACT - REDUX */
+/* react redux */
 import { useDispatch, useSelector } from "react-redux";
 
-/* ACTION CREATORS */
+/* action creators */
 import { addToCart, removeFromCart } from "../actions/cartActions";
 
 function CartScreen({ match, location, history }) {
-  /* GETTING DATA FROM URL IF PRESENT */
+  /* gets data from the url if present */
   const productId = match.params.id;
 
   const qty = location.search ? Number(location.search.split("=")[1]) : 1;
   //qty: '?qty=3' -> ['?qty',3] -> 3
 
-  /* FIRING OFF DISPATCH, BUT ONLY IF WE HAVE A PRODUCT ID & QUANTITY */
+  
+   /* dispatch after retrieving product id & quantity */
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,11 +40,11 @@ function CartScreen({ match, location, history }) {
     }
   }, [dispatch, productId, qty]);
 
-  /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
+  /* pull a partial state from the state in redux store */
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
-  /* HANDLERS */
+  /* handlers */
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
@@ -74,7 +75,7 @@ function CartScreen({ match, location, history }) {
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
 
-                  <Col>₹{item.price}</Col>
+                  <Col>${item.price}</Col>
 
                   <Col md={3}>
                     <Form.Control
@@ -118,7 +119,7 @@ function CartScreen({ match, location, history }) {
                 Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                 items
               </h2>
-              ₹
+              $
               {cartItems
                 .reduce((acc, item) => acc + item.qty * item.price, 0)
                 .toFixed(2)}

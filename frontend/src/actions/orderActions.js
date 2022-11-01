@@ -1,7 +1,8 @@
-/* AXIOS */
+//CRUD for orders
+/* axios */
 import axios from "axios";
 
-/* ACTION TYPES */
+/* action types */
 import {
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
@@ -25,14 +26,16 @@ import {
 
 import { CART_CLEAR_ITEMS } from "../constants/cartConstants";
 
-/* ACTION CREATOR USED IN CREATING ORDER IN PlaceOrderScreen COMPONENT  */
+
+/* action creator used to create orders by PlaceOrderScreen component  */
 export const createOrder = (order) => async (dispatch, getState) => {
   try {
     dispatch({
       type: ORDER_CREATE_REQUEST,
     });
 
-    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS, WE NEED TO BE LOGGED IN TO PLACE ORDER
+ 
+    // gets credentials of the current logged in user
     const {
       userLogin: { userInfo },
     } = getState();
@@ -44,16 +47,19 @@ export const createOrder = (order) => async (dispatch, getState) => {
       },
     };
 
-    /* MAKING API CALL TO SAVE THE ORDER DETAILS */
+
+    /* API method to save the order details */
     const { data } = await axios.post(`/api/orders/add/`, order, config);
 
-    /* IF PUT REQUEST SUCCESSFULL WE DISPATCH & SEND THE PAYLOAD TO OUR REDUCER */
+    
+     /* dispatch and payload sent to the reducer after a succesfull request  */
     dispatch({
       type: ORDER_CREATE_SUCCESS,
       payload: data,
     });
 
-    // REST CART INFO STORED IN STATE & LOCAL STORAGE AFTER ORDER PLACED
+  
+    // resets the cart's info at the local storage & state after on order was placed
     dispatch({
       type: CART_CLEAR_ITEMS,
       payload: data,
@@ -71,14 +77,16 @@ export const createOrder = (order) => async (dispatch, getState) => {
   }
 };
 
-/* ACTION CREATOR USED IN CREATING ORDER IN PlaceOrderScreen COMPONENT  */
+
+/* action creator used to create an order by the PlaceOrderScreen component  */
 export const getOrderDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: ORDER_DETAILS_REQUEST,
     });
 
-    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+    
+    // pulls out the credentials of currently logged in user
     const {
       userLogin: { userInfo },
     } = getState();
@@ -90,10 +98,11 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
       },
     };
 
-    /* MAKING API CALL TO GET THE ORDER DETAILS */
+  
+     /* API method to get the order details */
     const { data } = await axios.get(`/api/orders/${id}/`, config);
 
-    /* IF GET REQUEST SUCCESSFULL WE DISPATCH & SEND THE PAYLOAD TO OUR REDUCER */
+    /* dispatch&send payload to the reducer after a successfull get request */
     dispatch({
       type: ORDER_DETAILS_SUCCESS,
       payload: data,
@@ -109,14 +118,15 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
   }
 };
 
-/* ACTION CREATOR USED IN MAKING PAYMENT IN OrderScreen COMPONENT  */
+
+/* action creator used to make a payment by the OrderScreen component  */
 export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
   try {
     dispatch({
       type: ORDER_PAY_REQUEST,
     });
 
-    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+   // pulls out the credentials of currently logged in user
     const {
       userLogin: { userInfo },
     } = getState();
@@ -128,14 +138,16 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
       },
     };
 
-    /* MAKING API CALL TO SAVE THE PAYMENT DETAILS */
+   
+     /* API method to save the order details */
     const { data } = await axios.put(
       `/api/orders/${id}/pay/`,
       paymentResult,
       config
     );
 
-    /* IF PUT REQUEST SUCCESSFULL WE DISPATCH & SEND THE PAYLOAD TO OUR REDUCER */
+   
+    /* dispatch&send payload to the reducer after a successfull put request */
     dispatch({
       type: ORDER_PAY_SUCCESS,
       payload: data,
@@ -151,14 +163,15 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
   }
 };
 
-/* ACTION CREATOR USED IN FETCHING USERS ORDERS IN ProfileScreen COMPONENT */
+
+/* action creator used to fetch the user's orders by the ProfileScreen component */
 export const listMyOrders = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: ORDER_LIST_MY_REQUEST,
     });
 
-    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+    // pulls out the credentials of currently logged in user
     const {
       userLogin: { userInfo },
     } = getState();
@@ -170,10 +183,10 @@ export const listMyOrders = () => async (dispatch, getState) => {
       },
     };
 
-    /* MAKING API CALL TO GET THE DETAILS OF THE ORDERS MADE BY THE USER */
+    /* API method to get the order details */
     const { data } = await axios.get(`/api/orders/myorders/`, config);
 
-    /* IF GET REQUEST SUCCESSFULL WE DISPATCH & SEND THE PAYLOAD TO OUR REDUCER */
+    /* dispatch&send payload to the reducer after a successfull get request */
     dispatch({
       type: ORDER_LIST_MY_SUCCESS,
       payload: data,
@@ -189,14 +202,15 @@ export const listMyOrders = () => async (dispatch, getState) => {
   }
 };
 
-/* ACTION CREATOR USED IN FETCHING ALL USERS ORDERS IN OrderListScreen COMPONENT */
+
+/* action creator used to fetch all the users orders by the OrderListScreen component */
 export const listOrders = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: ORDER_LIST_REQUEST,
     });
 
-    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+    // pulls out the credentials of currently logged in user
     const {
       userLogin: { userInfo },
     } = getState();
@@ -208,10 +222,11 @@ export const listOrders = () => async (dispatch, getState) => {
       },
     };
 
-    /* MAKING API CALL TO GET THE DETAILS OF ALL THE ORDERS MADE BY THE ALL THE USERS */
+    
+     /* API method to get the order details made by all of the users */
     const { data } = await axios.get(`/api/orders/`, config);
 
-    /* IF GET REQUEST SUCCESSFULL WE DISPATCH & SEND THE PAYLOAD TO OUR REDUCER */
+    /* dispatch&send payload to the reducer after a successfull get request */
     dispatch({
       type: ORDER_LIST_SUCCESS,
       payload: data,
@@ -227,14 +242,15 @@ export const listOrders = () => async (dispatch, getState) => {
   }
 };
 
-/* ACTION CREATOR USED IN MARKING DELIVERY STATUS OF ORDERS IN OrderScreen COMPONENT  */
+
+/* action creator used to mark the delivery status of the orders by the OrderScreen component  */
 export const deliverOrder = (order) => async (dispatch, getState) => {
   try {
     dispatch({
       type: ORDER_DELIVER_REQUEST,
     });
 
-    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+    // pulls out the credentials of currently logged in user
     const {
       userLogin: { userInfo },
     } = getState();
@@ -246,14 +262,15 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
       },
     };
 
-    /* MAKING API CALL TO UPDATE ORDER DELIVERY STATUS */
+   
+    /* API method to update the order delivery status */
     const { data } = await axios.put(
       `/api/orders/${order._id}/deliver/`,
       {},
       config
     );
 
-    /* IF PUT REQUEST SUCCESSFULL WE DISPATCH & SEND THE PAYLOAD TO OUR REDUCER */
+    /* dispatch&send payload to the reducer after a successfull get request */
     dispatch({
       type: ORDER_DELIVER_SUCCESS,
       payload: data,

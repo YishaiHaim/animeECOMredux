@@ -1,7 +1,8 @@
-/* AXIOS */
+// CRUD for cart
+/* axios */
 import axios from "axios";
 
-/* ACTION TYPES */
+/* action types */
 import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
@@ -9,11 +10,13 @@ import {
   CART_SAVE_PAYMENT_METHOD,
 } from "../constants/cartConstants";
 
-/* ACTION CREATOR USED IN CartScreen COMPONENT */
+/* action creator used at the CartScreen component */
 
-/* FOR ADDING PRODUCTS TO CART */
+
+/* method for adding products to the cart */
 export const addToCart = (id, qty) => async (dispatch, getState) => {
-  // FETCHING PRODUCT DATA
+ 
+   // fetches the product data using axios
   const { data } = await axios.get(`/api/products/${id}`);
 
   dispatch({
@@ -28,39 +31,45 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
     },
   });
 
-  // SETTING VALUE OF CART ITEMS IN LOCAL STORAGE
+  
+  // sets the cart's value of items in the local storage
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
 
-/* FOR REMOVING PRODUCTS FROM CART */
+
+/* method for removing products from the cart */
 export const removeFromCart = (id) => (dispatch, getState) => {
   dispatch({
     type: CART_REMOVE_ITEM,
     payload: id,
   });
 
-  // SETTING VALUE OF CART ITEMS IN LOCAL STORAGE
+ // sets the cart's value of items in the local storage
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
 
-/* ACTION CREATOR USED IN ShippingScreen COMPONENT */
+
+/* action creator used by the ShippingScreen component */
 export const saveShippingAddress = (data) => (dispatch) => {
   dispatch({
     type: CART_SAVE_SHIPPING_ADDRESS,
     payload: data,
   });
 
-  // SETTING VALUE OF ADDRESS IN LOCAL STORAGE
+  
+  // sets the address value in the local storage
   localStorage.setItem("shippingAddress", JSON.stringify(data));
 };
 
-/* ACTION CREATOR USED IN PaymentScreen COMPONENT */
+
+/* action creator used by the PaymentScreen component */
 export const savePaymentMethod = (data) => (dispatch) => {
   dispatch({
     type: CART_SAVE_PAYMENT_METHOD,
     payload: data,
   });
 
-  // SETTING VALUE OF PAYMENT METHOD IN LOCAL STORAGE
+
+  // sets the payment method value in the local storage
   localStorage.setItem("paymentMethod", JSON.stringify(data));
 };

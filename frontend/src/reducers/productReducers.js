@@ -1,4 +1,4 @@
-/* ACTION TYPES */
+/* action types */
 import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -26,7 +26,7 @@ import {
   PRODUCT_TOP_REQUEST,
 } from "../constants/productConstants";
 
-/* REDUCER USED IN HomeScreen COMPONENT */
+/* this reducer is used at the HomeScreen component */
 export const productListReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case PRODUCT_LIST_REQUEST:
@@ -54,7 +54,7 @@ export const productListReducer = (state = { products: [] }, action) => {
   }
 };
 
-/* REDUCER USED IN ProductScreen COMPONENT */
+/* this reducer is used at the ProductScreen component */
 export const productDetailsReducer = (
   state = { product: { reviews: [] } },
   action
@@ -83,7 +83,7 @@ export const productDetailsReducer = (
   }
 };
 
-/* REDUCER USED IN ProductListScreen COMPONENT */
+/* this reducer is used at the ProductListScreen component */
 export const productDeleteReducer = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_DELETE_REQUEST:
@@ -108,7 +108,7 @@ export const productDeleteReducer = (state = {}, action) => {
   }
 };
 
-/* REDUCER USED IN ProductListScreen COMPONENT */
+/* this recuder is used at ProductListScreen component */
 export const productCreateReducer = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_CREATE_REQUEST:
@@ -137,7 +137,7 @@ export const productCreateReducer = (state = {}, action) => {
   }
 };
 
-/* REDUCER USED IN ProductEditScreen COMPONENT */
+/* this recuder is used at ProductEditScreen component */
 export const productUpdateReducer = (state = { product: {} }, action) => {
   switch (action.type) {
     case PRODUCT_UPDATE_REQUEST:
@@ -166,7 +166,7 @@ export const productUpdateReducer = (state = { product: {} }, action) => {
   }
 };
 
-/* REDUCER USED IN ProductScreen COMPONENT */
+/* this recuder is used atProductScreen component */
 export const productReviewCreateReducer = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_CREATE_REVIEW_REQUEST:
@@ -194,7 +194,7 @@ export const productReviewCreateReducer = (state = {}, action) => {
   }
 };
 
-/* REDUCER USED IN ProductCarousel COMPONENT */
+/* this recuder is used at ProductCarousel component */
 export const productTopRatedReducer = (state = { products: [] }, action) => {
   switch (action.type) {
     case PRODUCT_TOP_REQUEST:

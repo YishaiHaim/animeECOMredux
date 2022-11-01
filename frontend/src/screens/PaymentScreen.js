@@ -1,33 +1,35 @@
 import React, { useState } from "react";
 
-/* REACT BOOTSTRAP */
+/* react bootsrap */
 import { Button, Form, Col } from "react-bootstrap";
 
-/* COMPONENTS */
+/* components */
 import FormContainer from "../components/FormContainer";
 import CheckoutSteps from "../components/CheckoutSteps";
 
-/* REACT - REDUX */
+/* react redux */
 import { useDispatch, useSelector } from "react-redux";
 
-/* ACTION CREATORS */
+/* action creators */
 import { savePaymentMethod } from "../actions/cartActions";
 
 function PaymentScreen({ history }) {
-  // PULLING OUT SHIPPING ADDRESS FROM CART
+  
+  // pulls out the shipping address from the cart
   const cart = useSelector((state) => state.cart);
 
   const { shippingAddress } = cart;
 
-  // STATE
+  // state
   const [paymentMethod, setPaymentMethod] = useState("PayPal");
 
-  /* IF NO SHIPPING ADDRESS THEN REDIRECT TO ShippingAddress SCREEN */
+  
+ /* redirects to the shipping screen of no shipping adrees was provided */
   if (!shippingAddress.address) {
     history.push("./shipping");
   }
 
-  // HANDLERS
+  // handlers
 
   const dispatch = useDispatch();
 
@@ -36,7 +38,8 @@ function PaymentScreen({ history }) {
 
     dispatch(savePaymentMethod(paymentMethod));
 
-    // AFTER CHOSING THE PAYMENT METHOD REDIRECT USER TO PlaceOrder SCREEN
+    
+    // redirects to the place order screen afer choosing the payment method
     history.push("/placeorder");
   };
 

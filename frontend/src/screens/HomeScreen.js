@@ -1,29 +1,29 @@
 import React, { useEffect } from "react";
 
-/* REACT-BOOTSTRAP */
+/* react bootstrap */
 import { Row, Col } from "react-bootstrap";
 
-/* COMPONENTS */
+/* components */
 import Product from "../components/Product";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import Paginate from "../components/Paginate";
 import ProductCarousel from "../components/ProductCarousel";
 
-/* REACT - REDUX */
+/* react redux */
 import { useDispatch, useSelector } from "react-redux";
 
-/* ACTION CREATORS */
+/* action creators */
 import { listProducts } from "../actions/productActions";
 
 function HomeScreen({ history }) {
   const dispatch = useDispatch();
 
-  /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
+  /* pull a partial state from the state in redux store */ 
   const productList = useSelector((state) => state.productList);
   const { products, page, pages, loading, error } = productList;
 
-  /* FIRING OFF THE ACTION CREATORS USING DISPATCH */
+  /* dispatches the action creators */
 
   let keyword =
     history.location

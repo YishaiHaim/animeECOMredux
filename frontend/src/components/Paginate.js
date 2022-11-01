@@ -1,9 +1,9 @@
 import React from "react";
 
-/* REACT BOOTSTRAP */
+/* react bootstrap */
 import { Pagination } from "react-bootstrap";
 
-/* REACT ROUTER BOOTSTRAP */
+/* react router bootstrap */
 import { LinkContainer } from "react-router-bootstrap";
 
 function Paginate({ page, pages, keyword = "", isAdmin = false }) {

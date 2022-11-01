@@ -1,29 +1,29 @@
 import React from "react";
 
-/* REACT BOOTSTRAP */
+/* react bootstrap */
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 
-/* REACT ROUTER BOOTSTRAP */
+/* react router bootstrap */
 import { LinkContainer } from "react-router-bootstrap";
 
-/* REACT - REDUX */
+/* react redux */
 import { useDispatch, useSelector } from "react-redux";
 
-/* ACTION CREATORS */
+/* action creators */
 import { logout } from "../actions/userActions";
 
-/* COMPONENTS */
+/* components */
 import SearchBox from "./SearchBox";
 
 import logo from "../logo.png";
 
 function Header() {
-  /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
+ /* pull a partial state from the state in redux store */ 
   const userLogin = useSelector((state) => state.userLogin);
 
   const { userInfo } = userLogin;
 
-  /* HANDLER */
+  /* handler */
   const dispatch = useDispatch();
 
   const logoutHandler = () => {

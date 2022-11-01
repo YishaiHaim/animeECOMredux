@@ -1,4 +1,4 @@
-/* ACTION TYPES */
+/* action types */
 import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
@@ -7,7 +7,7 @@ import {
   CART_CLEAR_ITEMS,
 } from "../constants/cartConstants";
 
-/* REDUCER USED IN CartScreen & ShippingScreen COMPONENT */
+/* this reducer is used at CartScreen & ShippingScreen components */
 export const cartReducer = (
   state = {
     cartItems: [],
@@ -16,9 +16,9 @@ export const cartReducer = (
   action
 ) => {
   switch (action.type) {
-    // IF ITEM DOESN'T EXIST IN CART WE ADD IT, IF IT ALREADY EXISTS THEN WE UPDATE IT'S QUANTITY
+    // if it's a new item, it will be added. if the item already exists than the quantity will be updated
 
-    /* CartScreen COMPONENT */
+    /* CartScreen component */
 
     case CART_ADD_ITEM: {
       const item = action.payload;
@@ -46,7 +46,7 @@ export const cartReducer = (
       };
     }
 
-    /* ShippingScreen COMPONENT */
+    /* ShippingScreen component */
 
     case CART_SAVE_SHIPPING_ADDRESS:
       return {
@@ -54,7 +54,7 @@ export const cartReducer = (
         shippingAddress: action.payload,
       };
 
-    /* PaymentScreen COMPONENT */
+    /* PaymentScreen component */
 
     case CART_SAVE_PAYMENT_METHOD:
       return {
@@ -62,7 +62,7 @@ export const cartReducer = (
         paymentMethod: action.payload,
       };
 
-    /* PlaceOrderScreen COMPONENT */
+    /* PlaceOrderScreen component */
     case CART_CLEAR_ITEMS:
       return {
         ...state,

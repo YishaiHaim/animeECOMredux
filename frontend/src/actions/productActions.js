@@ -1,7 +1,8 @@
-/* AXIOS */
+// CRUD for products
+/* axios */
 import axios from "axios";
 
-/* ACTION TYPES */
+/* action types */
 import {
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
@@ -26,7 +27,7 @@ import {
   PRODUCT_TOP_REQUEST,
 } from "../constants/productConstants";
 
-/* ACTION CREATOR USED IN HomeScreen COMPONENT */
+/* action creator used by the HomeScreen component */
 export const listProducts =
   (keyword = "") =>
   async (dispatch) => {
@@ -52,7 +53,7 @@ export const listProducts =
     }
   };
 
-/* ACTION CREATOR USED IN ProductScreen COMPONENT */
+/* action creator used by the ProductScreen component */
 export const listProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({
@@ -76,14 +77,14 @@ export const listProductDetails = (id) => async (dispatch) => {
   }
 };
 
-/* ACTION CREATOR USED IN DELETING PRODUCTS IN ProductListScreen COMPONENT */
+/* action creator used to delete products by the ProductListScreen component */
 export const deleteProduct = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: PRODUCT_DELETE_REQUEST,
     });
 
-    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+    // pulls out the credentials of currently logged in user
     const {
       userLogin: { userInfo },
     } = getState();
@@ -95,11 +96,12 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       },
     };
 
-    /* MAKING API CALL TO DELETE PRODUCT */
+    
+    /* API method to delete the product */
     // eslint-disable-next-line
     const { data } = await axios.delete(`/api/products/delete/${id}/`, config);
 
-    /* IF GET REQUEST SUCCESSFULL WE DISPATCH & SEND THE PAYLOAD TO OUR REDUCER */
+    /* dispatch&send payload to the reducer after a successfull get request */
     dispatch({
       type: PRODUCT_DELETE_SUCCESS,
     });
@@ -114,14 +116,15 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
   }
 };
 
-/* ACTION CREATOR USED IN CREATING PRODUCTS IN ProductListScreen COMPONENT */
+
+/* action creator used to create new products by the ProductListScreen component */
 export const createProduct = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: PRODUCT_CREATE_REQUEST,
     });
 
-    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+  // pulls out the credentials of currently logged in user
     const {
       userLogin: { userInfo },
     } = getState();
@@ -133,10 +136,12 @@ export const createProduct = () => async (dispatch, getState) => {
       },
     };
 
-    /* MAKING API CALL TO CREATE PRODUCT */
+   
+    /* API method to create the new product requested at line 120 */
     const { data } = await axios.post(`/api/products/create/`, {}, config);
 
-    /* IF POST REQUEST SUCCESSFULL WE DISPATCH & SEND THE PAYLOAD TO OUR REDUCER */
+   
+      /* dispatch&send payload to the reducer after a successfull post request */
     dispatch({
       type: PRODUCT_CREATE_SUCCESS,
       payload: data,
@@ -152,14 +157,15 @@ export const createProduct = () => async (dispatch, getState) => {
   }
 };
 
-/* ACTION CREATOR USED IN UPDATING PRODUCTS IN ProductEditScreen COMPONENT */
+
+/* action creator used to update products by the ProductEditScreen component */
 export const updateProduct = (product) => async (dispatch, getState) => {
   try {
     dispatch({
       type: PRODUCT_UPDATE_REQUEST,
     });
 
-    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+   // pulls out the credentials of currently logged in user
     const {
       userLogin: { userInfo },
     } = getState();
@@ -171,20 +177,21 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       },
     };
 
-    /* MAKING API CALL TO UPDATE PRODUCT */
+    /* API method to update the product */
     const { data } = await axios.put(
       `/api/products/update/${product._id}/`,
       product,
       config
     );
 
-    /* IF PUT REQUEST SUCCESSFULL WE DISPATCH & SEND THE PAYLOAD TO OUR REDUCER */
+    /* dispatch&send payload to the reducer after a successfull put request */
     dispatch({
       type: PRODUCT_UPDATE_SUCCESS,
       payload: data,
     });
 
-    /* LOAD IN THE UPDATED PRODUCTS DETAILS */
+  
+    /* load the updated products details */
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data,
@@ -200,7 +207,9 @@ export const updateProduct = (product) => async (dispatch, getState) => {
   }
 };
 
-/* ACTION CREATOR USED IN CREATING PRODUCT REVIEWS IN ProductScreen COMPONENT */
+
+/* action creator used to create product reviews ny the ProductScreen component */
+
 export const createProductReview =
   (productId, review) => async (dispatch, getState) => {
     try {
@@ -208,7 +217,7 @@ export const createProductReview =
         type: PRODUCT_CREATE_REVIEW_REQUEST,
       });
 
-      // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+// pulls out the credentials of currently logged in user
       const {
         userLogin: { userInfo },
       } = getState();
@@ -220,14 +229,14 @@ export const createProductReview =
         },
       };
 
-      /* MAKING API CALL TO CREATE PRODUCT REVIEW */
+      /* API method to create the product review */
       const { data } = await axios.post(
         `/api/products/${productId}/reviews/`,
         review,
         config
       );
 
-      /* IF POST REQUEST SUCCESSFULL WE DISPATCH & SEND THE PAYLOAD TO OUR REDUCER */
+      /* dispatch&send payload to the reducer after a successfull post request */
       dispatch({
         type: PRODUCT_CREATE_REVIEW_SUCCESS,
         payload: data,
@@ -243,7 +252,8 @@ export const createProductReview =
     }
   };
 
-/* ACTION CREATOR USED IN ProductCarousel COMPONENT */
+
+/* action creator used by the ProductCarousel component */
 export const listTopProducts = () => async (dispatch) => {
   try {
     dispatch({

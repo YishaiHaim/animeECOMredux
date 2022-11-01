@@ -1,9 +1,9 @@
 import React from "react";
 
-/* REACT BOOTSTRAP */
+/* react bootstrap */
 import { Nav } from "react-bootstrap";
 
-/* REACT ROUTER BOOTSTRAP */
+/* react router bootstrap */
 import { LinkContainer } from "react-router-bootstrap";
 
 function CheckoutSteps({ step1, step2, step3, step4 }) {

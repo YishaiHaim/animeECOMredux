@@ -13,6 +13,7 @@
 5 cd back to ecommerce-django-react
 5 pip install -r requirements.txt (please note that the file is in the main folder)
 6 python manage.py runserver     (please note that the file is in the main folder)
+7 credentials for the admin component and features:|username- yi@shai || password: 1111|
 
 ```
 
@@ -31,3 +32,5 @@ A customized eCommerce & shopping cart application using Django, REACT and REDUX
 - Mark orders as a delivered option
 - Checkout process (shipping, payment method, etc)
 - PayPal / credit card integration
+
+

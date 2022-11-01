@@ -1,18 +1,19 @@
-/* ACTION TYPES USED IN CartScreen COMPONENT */
+/* action types used at CartScreen component */
 
-// ADD ITEMS TO CART
+// add items to the cart
 export const CART_ADD_ITEM = "CART_ADD_ITEM";
 
-// REMOVE ITEMS FROM CART
+// removes items from the cart
 export const CART_REMOVE_ITEM = "CART_REMOVE_ITEM";
 
-/* ACTION TYPES USED IN ShippingScreen COMPONENT */
+/* action types used at ShippingScreen component */
 
-// SAVE SHIPPING ADDRESS
+// save shipping address
 export const CART_SAVE_SHIPPING_ADDRESS = "CART_SAVE_SHIPPING_ADDRESS";
 
-// SAVE SHIPPING ADDRESS
+// save payment method
 export const CART_SAVE_PAYMENT_METHOD = "CART_SAVE_PAYMENT_METHOD";
 
-// DELETE CART INFO IN LOCAL STORAGE AFTER ORDER PLACED
+
+// deletes the cart info inside local storage after an order is placed
 export const CART_CLEAR_ITEMS = "CART_CLEAR_ITEMS";

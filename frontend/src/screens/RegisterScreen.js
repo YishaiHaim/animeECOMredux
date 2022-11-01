@@ -11,7 +11,7 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
 
-/* redux */
+/* react redux */
 import { useDispatch, useSelector } from "react-redux";
 
 /* action creator */

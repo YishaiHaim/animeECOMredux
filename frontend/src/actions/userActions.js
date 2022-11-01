@@ -1,7 +1,8 @@
-/* AXIOS */
+// CRUD for user
+/* axios */
 import axios from "axios";
 
-/* ACTION TYPES */
+/* action types*/
 import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -31,14 +32,16 @@ import {
 
 import { ORDER_LIST_MY_RESET } from "../constants/orderConstants";
 
-/* ACTION CREATOR USED IN USER LOGIN IN LoginScreen COMPONENT & HEADER */
+
+/* action creator used to log in the user by the LoginScreen component & header */
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({
       type: USER_LOGIN_REQUEST,
     });
 
-    /* MAKE POST REQUEST TO GET BACK THE USER TOKEN */
+    
+    /* post request to retrieve the user's token */
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -51,13 +54,15 @@ export const login = (email, password) => async (dispatch) => {
       config
     );
 
-    /* IF POST REQUEST SUCCESSFULL WE DISPATCH & SEND THE PAYLOAD TO OUR REDUCER */
+    
+    /* dispatch&send payload to the reducer after a successfull post request */
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
 
-    /* SETTING VALUE OF USER INFO IN LOCAL STORAGE SO WE KNOW USER IS LOGGED IN */
+    
+    // sets the user's log in info value in the local storage to verify if logged in
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
@@ -70,36 +75,42 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-/* ACTION CREATOR USED IN USER LOGOUT IN LoginScreen COMPONENT & HEADER */
+
+/* action creator used to log out a user by LoginScreen component & header */
 export const logout = () => (dispatch) => {
   /* REMOVE USER INFO FORM LOCAL STORAGE */
   localStorage.removeItem("userInfo");
 
-  /* DISPATCH TO REMOVE USER INFO FORM STORE */
+  
+  /* dispatch to remove the user's info after logout in the form store */
   dispatch({
     type: USER_LOGOUT,
   });
   dispatch({
     type: USER_DETAILS_RESET,
   });
-  /* DISPATCH TO RESET THE DETAILS OF ORDERS MADE BY USER */
+  
+  /* dispatch to reset the order details made by the user afer log out */
   dispatch({
     type: ORDER_LIST_MY_RESET,
   });
-  /* DISPATCH TO RESET THE DETAILS OF USERS LIST */
+ 
+  /* dispatch to reset the user's list details after log out */
   dispatch({
     type: USER_LIST_RESET,
   });
 };
 
-/* ACTION CREATOR USED IN USER REGISTRATION IN RegisterScreen COMPONENT & HEADER */
+
+/* action creator used to register a new user by the RegisterScreen component & header */
 export const register = (name, email, password) => async (dispatch) => {
   try {
     dispatch({
       type: USER_REGISTER_REQUEST,
     });
 
-    /* MAKE POST REQUEST TO GET BACK THE USER TOKEN */
+   
+    /* post request to retrieve the user's token */
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -112,19 +123,22 @@ export const register = (name, email, password) => async (dispatch) => {
       config
     );
 
-    /* IF POST REQUEST SUCCESSFULL WE DISPATCH & SEND THE PAYLOAD TO OUR REDUCER */
+    /* dispatch&send payload to the reducer after a successfull post request */
     dispatch({
       type: USER_REGISTER_SUCCESS,
       payload: data,
     });
 
-    /* AFTER REGISTRATION WE WANT TO IMMEDIATELY LOGIN THE USER */
+    
+    
+    /*logs in the user immediately after the registration */
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
 
-    /* SETTING VALUE OF USER INFO IN LOCAL STORAGE SO WE KNOW USER IS LOGGED IN */
+   
+    // sets the user's log in info value in the local storage to verify if logged in
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
@@ -137,19 +151,22 @@ export const register = (name, email, password) => async (dispatch) => {
   }
 };
 
-/* ACTION CREATOR USED IN GETTING USER DETAILS IN ProfileScreen COMPONENT  */
+
+/* action creator used to get the user's details by the ProfileScreen component  */
 export const getUserDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_DETAILS_REQUEST,
     });
 
-    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+   
+    // pulls out the credentials of the currently logged in user
     const {
       userLogin: { userInfo },
     } = getState();
 
-    /* MAKE GET REQUEST TO GET BACK THE USER DATA */
+  
+    /* get request to retrieve the user's data */
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -160,7 +177,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     // USING ${id} BECAUSE WHILE ACCESSING NORMAL USER WE'LL PASS STRING 'profile' BUT WHILE ACCESSING ADMIN PANEL WE'LL PASS THE 'id' SO LINK HAS TO BE DYNAMIC
     const { data } = await axios.get(`/api/users/${id}/`, config);
 
-    /* IF GET REQUEST SUCCESSFULL WE DISPATCH & SEND THE PAYLOAD TO OUR REDUCER */
+    /* dispatch&send payload to the reducer after a successfull get request */
     dispatch({
       type: USER_DETAILS_SUCCESS,
       payload: data,
@@ -176,19 +193,21 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
   }
 };
 
-/* ACTION CREATOR USED IN UPDATING USER DETAILS IN ProfileScreen COMPONENT  */
+
+/* action creator used to update the user's credentials by the ProfileScreen component  */
 export const updateUserProfile = (user) => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_UPDATE_PROFILE_REQUEST,
     });
 
-    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+    // pulls out the credentials of the currently logged in user
     const {
       userLogin: { userInfo },
     } = getState();
 
-    /* MAKE PUT REQUEST TO SET THE THE USER DATA */
+   
+    /* put request to set the user's credentials */
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -199,19 +218,21 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     // USING ${id} BECAUSE WHILE ACCESSING NORMAL USER WE'LL PASS STRING 'profile' BUT WHILE ACCESSING ADMIN PANEL WE'LL PASS THE 'id' SO LINK HAS TO BE DYNAMIC
     const { data } = await axios.put(`/api/users/profile/update`, user, config);
 
-    /* IF PUT REQUEST SUCCESSFULL WE DISPATCH & SEND THE PAYLOAD TO OUR REDUCER */
+   /* dispatch&send payload to the reducer after a successfull put request */
     dispatch({
       type: USER_UPDATE_PROFILE_SUCCESS,
       payload: data,
     });
 
-    /* AFTER UPDATING PROFILE INFORMATION WE WANT TO LOG THE USER IN WITH THE UPDATED INFO */
+    
+    /* logs in the user with the updated credential */
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
 
-    /* SETTING UPDATED VALUE OF USER INFO IN LOCAL STORAGE */
+    
+     /*sets the updated user's credentials value in the local storage */
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
@@ -224,19 +245,21 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   }
 };
 
-/* ACTION CREATOR USED TO GET THE LIST OF USERS IN UserList SCREEN  */
+
+/* action creator used to get the user's list by the UserList screen  */
 export const listUsers = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_LIST_REQUEST,
     });
 
-    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+    // pulls out the credentials of the currently logged in user
     const {
       userLogin: { userInfo },
     } = getState();
 
-    /* MAKE GET REQUEST TO SET THE THE USERS LIST */
+    
+    /* get request to set the user's list */
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -261,19 +284,21 @@ export const listUsers = () => async (dispatch, getState) => {
   }
 };
 
-/* ACTION CREATOR USED TO DELETE A USER IN UserList SCREEN */
+
+/* action creator used to delete a user by the UserList screen */
 export const deleteUser = (id) => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_DELETE_REQUEST,
     });
 
-    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+    // pulls out the credentials of the currently logged in user
     const {
       userLogin: { userInfo },
     } = getState();
 
-    /* MAKE DELETE REQUEST TO DELETE THE USER */
+    
+    /* delete request to delete the user */
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -298,19 +323,21 @@ export const deleteUser = (id) => async (dispatch, getState) => {
   }
 };
 
-/* ACTION CREATOR USED TO EDIT A USER IN UserUpdate SCREEN */
+
+/* action creator used to edit a user by the UserUpdate screen */
 export const updateUser = (user) => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_UPDATE_REQUEST,
     });
 
-    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+    // pulls out the credentials of the currently logged in user
     const {
       userLogin: { userInfo },
     } = getState();
 
-    /* MAKE PUT REQUEST TO EDIT THE USER */
+    
+    /* put request to edit the user's credentials */
     const config = {
       headers: {
         "Content-type": "application/json",
@@ -328,7 +355,8 @@ export const updateUser = (user) => async (dispatch, getState) => {
       type: USER_UPDATE_SUCCESS,
     });
 
-    /* AFTER UPDATING WE WANT TO RELOAD THE USER DATA */
+    
+    /* reloads the user's data after updating */
     dispatch({
       type: USER_DETAILS_SUCCESS,
       payload: data,

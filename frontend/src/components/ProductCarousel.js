@@ -1,25 +1,25 @@
 import React, { useEffect } from "react";
 
-/* REACT BOOTSTRAP */
+/* react bootstrap */
 import { Carousel, Image } from "react-bootstrap";
 
-/* REACT - REDUX */
+/* react redux */
 import { useDispatch, useSelector } from "react-redux";
 
-/* REACT ROUTER */
+/* react router */
 import { Link } from "react-router-dom";
 
-/* COMPONENTS */
+/* components */
 import Loader from "./Loader";
 import Message from "./Message";
 
-/* ACTION TYPES */
+/* action types */
 import { listTopProducts } from "../actions/productActions";
 
 function ProductCarousel() {
   const dispatch = useDispatch();
 
-  /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
+ /* pull a partial state from the state in redux store */ 
   const productTopRated = useSelector((state) => state.productTopRated);
   const { error, loading, products } = productTopRated;
 
@@ -40,7 +40,7 @@ function ProductCarousel() {
 
             <Carousel.Caption className="carousel.caption">
               <h4>
-                {product.name} (₹{product.price})
+                {product.name} (${product.price})
               </h4>
             </Carousel.Caption>
           </Link>

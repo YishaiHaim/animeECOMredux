@@ -40,7 +40,7 @@ function UserListScreen({ history }) {
     }
   }, [dispatch, history, successDelete, userInfo]);
 
-  /* HANDLER */
+  /* handler */
   const deleteHandler = (id) => {
     if (window.confirm("permenantly delete user ?"))
       dispatch(deleteUser(id));

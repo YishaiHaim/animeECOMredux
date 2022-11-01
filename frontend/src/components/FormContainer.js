@@ -1,6 +1,6 @@
 import React from "react";
 
-/* REACT BOOTSTRAP */
+/* react bootstrap */
 import { Row, Col, Container } from "react-bootstrap";
 
 function FormContainer({ children }) {

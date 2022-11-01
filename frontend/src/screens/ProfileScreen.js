@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from "react";
 
-/* REACT BOOTSTRAP */
+/* react bootstrap */
 import { Row, Col, Button, Form, Table } from "react-bootstrap";
 
-/* REACT ROUTER BOOTSTRAP */
+/* react router bootstrap */
 import { LinkContainer } from "react-router-bootstrap";
 
-/* COMPONENTS */
+/* components */
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 
-/* REACT - REDUX */
+/* react redux */
 import { useDispatch, useSelector } from "react-redux";
 
-/* ACTION CREATORS */
+/* action creator */
 import { getUserDetails, updateUserProfile } from "../actions/userActions";
 
 import { listMyOrders } from "../actions/orderActions";
 
-/* ACTION TYPES */
+/* action type */
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 
 function ProfileScreen({ history }) {
-  /* STATE */
+  /* usestates */
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
@@ -31,45 +31,52 @@ function ProfileScreen({ history }) {
 
   const dispatch = useDispatch();
 
-  /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
+  
+  /* pull a partial state from the state in redux store */
   const userDetails = useSelector((state) => state.userDetails);
 
   const { user, loading, error } = userDetails;
 
-  /* WE NEED TO MAKE SURE USER IS LOGGED IN SO PULLING OUT USER LOGIN INFO */
+  
+   /* verify user login */
   const userLogin = useSelector((state) => state.userLogin);
 
   const { userInfo } = userLogin;
 
-  /* PULLING OUT SUCCESS FROM userUpdateProfile, IF SUCCESS IS TRUE WE WILL RESET STATE */
+ 
+   /* verify success of userUpdateProfile, if success=true > reset the state  */
   const userUpdateProfle = useSelector((state) => state.userUpdateProfle);
 
   const { success } = userUpdateProfle;
 
-  /* PULLING OUT USER ORDER DETAILS TO DISPLAY ON THE PAGE */
+  
+  /* pulls out the user order details to display on page*/
   const orderListMy = useSelector((state) => state.orderListMy);
 
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
 
-  /* SENDING USER TO LOGIN PAGE IF NOT LOGGED IN & SHOW PROFILE DATA IF LOGGED IN */
+ 
+  /* sends user to the login page if the user is not logged in/shows profile data if logged in */
   useEffect(() => {
-    // USER IS NOT LOGGED IN
+    // user is not loggen in in this phase, redirect
     if (!userInfo) {
       history.push("/login");
     } else {
-      // WE DON'T HAVE THE USER INFO SO WE DISPATCH AN ACTION TO GET THE DATA
+      
+      // action dispatch to retrieve the user's info
       if (!user || !user.name || success || userInfo._id !== user._id) {
         /* (userInfo._id !== user._id) BECAUSE DURING USER EDIT STATE CHANGES SO WE WANT TO FIRE DISPATCH AGAIN HERE IF THE DATA ISN'T SAME AS THE USER AS WE ARE LOGGED IN  */
         // RESETTING PROFILE BEFORE FETCHING DATA SO THAT WE ALWAYS HAVE UPDATED DATA
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
 
-        // FETCHING USER DATA
+        // fetches user data
         dispatch(getUserDetails("profile"));
 
-        // FETCHING USER ORDER DETAILS
+        // fetches user order details
         dispatch(listMyOrders());
       } else {
-        // WE HAVE THE USER INFO SO WE SET OUR STATE
+        
+        // information is fetched correctly at this phase > set state
         setName(user.name);
         setEmail(user.email);
       }
@@ -81,7 +88,7 @@ function ProfileScreen({ history }) {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    /* DISABLE SUBMIT IF PASSWORDS DON'T MATCH */
+    /* disables the submit button if the passwords dont match */
     if (password !== confirmPassword) {
       setMessage("Passwords do not match");
     } else {

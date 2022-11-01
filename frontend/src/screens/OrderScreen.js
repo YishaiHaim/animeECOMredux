@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from "react";
 
-/* REACT ROUTER */
+/* react router */
 import { Link } from "react-router-dom";
 
-/* REACT BOOTSTRAP */
+/* react boostrap */
 import { Row, Col, ListGroup, Image, Card, Button } from "react-bootstrap";
 
-/* PAYPAL BUTTONS */
+/* paypal buttons */
 import { PayPalButton } from "react-paypal-button-v2";
 
-/* COMPONENTS */
+/* components */
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 
-/* REACT - REDUX */
+/* react redux */
 import { useDispatch, useSelector } from "react-redux";
 
-/* ACTION CREATORS */
+/* action creators */
 import {
   getOrderDetails,
   payOrder,
   deliverOrder,
 } from "../actions/orderActions";
 
-/* ACTION TYPES */
+/* action types */
 import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
@@ -36,7 +36,7 @@ function OrderScreen({ history, match }) {
 
   const [sdkReady, setSdkReady] = useState(false);
 
-  /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
+ /* pull a partial state from the state in redux store */ 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, error, loading } = orderDetails;
 
@@ -49,19 +49,20 @@ function OrderScreen({ history, match }) {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  // ITEMS PRICE GETS CALCULATED ONLY IF WE HAVE AN ORDER
+  
+  // calculates the final price after an order is placed
   if (!loading && !error) {
     order.itemsPrice = order.orderItems
       .reduce((acc, item) => acc + item.price * item.qty, 0)
       .toFixed(2);
   }
 
-  // PAYPAL BUTTONS
+  // paypal buttons- attention!  change the client id credientials to YOUR paypal account
   const addPayPalScript = () => {
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.src =
-      "https://www.paypal.com/sdk/js?client-id=AYgflmsaM7ccNLPlKUiufIyw8-spOE4UuS5XyyTCvhzheA-1EUcZF9qGlgXBZaSKcP5BY0zTc9WgINKe";
+      "https://www.paypal.com/sdk/js?client-id=AUhfWCZLI2bnvnIjLl0zxKxx77F2rDyxHFYCEOizbxztkVofFGQTDpuMqFeIiw4BK4TFr-u5GYn4eged";
     script.async = true;
     script.onload = () => {
       setSdkReady(true);
@@ -70,12 +71,14 @@ function OrderScreen({ history, match }) {
   };
 
   useEffect(() => {
-    // IS USER IS NOT LOGGED IN THEN REDIRECT TO LOGIN PAGE
+    
+    // redirects to the login page if the user is not logged in
     if (!userInfo) {
       history.push("/login");
     }
 
-    // CHECK IF WE HAVE THE ORDER DETAILS, IF NOT DISPATCH AN ACTION TO GET THE ORDER DETAILS
+   
+    //method to verify the existance of the order details, if we dont have them we will dispatch to retrieve them
     if (
       !order ||
       successPay ||
@@ -88,7 +91,7 @@ function OrderScreen({ history, match }) {
 
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
-      // ACTIVATING PAYPAL SCRIPTS
+      // activates the paypal script
       if (!window.paypal) {
         addPayPalScript();
       } else {
@@ -97,7 +100,7 @@ function OrderScreen({ history, match }) {
     }
   }, [dispatch, order, orderId, successPay, successDeliver, history, userInfo]);
 
-  /* HANDLERS */
+  /* handlers */
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult));
   };
@@ -190,7 +193,7 @@ function OrderScreen({ history, match }) {
                         </Col>
 
                         <Col md={4}>
-                          {item.qty} X ₹{item.price} = ₹
+                          {item.qty} X ${item.price} = $
                           {(item.qty * item.price).toFixed(2)}
                         </Col>
                       </Row>
@@ -213,7 +216,7 @@ function OrderScreen({ history, match }) {
                 <Row>
                   <Col>Items:</Col>
 
-                  <Col>₹{order.itemsPrice}</Col>
+                  <Col>${order.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
@@ -221,7 +224,7 @@ function OrderScreen({ history, match }) {
                 <Row>
                   <Col>Shipping:</Col>
 
-                  <Col>₹{order.shippingPrice}</Col>
+                  <Col>${order.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
@@ -229,7 +232,7 @@ function OrderScreen({ history, match }) {
                 <Row>
                   <Col>Tax:</Col>
 
-                  <Col>₹{order.taxPrice}</Col>
+                  <Col>${order.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
@@ -237,7 +240,7 @@ function OrderScreen({ history, match }) {
                 <Row>
                   <Col>Total:</Col>
 
-                  <Col>₹{order.totalPrice}</Col>
+                  <Col>${order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
 

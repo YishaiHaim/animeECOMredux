@@ -1,4 +1,4 @@
-/* ACTION TYPES */
+/* action types */
 import {
   ORDER_CREATE_REQUEST,
   ORDER_CREATE_SUCCESS,
@@ -24,7 +24,7 @@ import {
   ORDER_DELIVER_RESET,
 } from "../constants/orderConstants";
 
-/* REDUCER USED IN PlaceOrder COMPONENT */
+/* this reducer is used at the PlaceOrder component */
 export const orderCreateReducer = (state = {}, action) => {
   switch (action.type) {
     case ORDER_CREATE_REQUEST:
@@ -53,7 +53,7 @@ export const orderCreateReducer = (state = {}, action) => {
   }
 };
 
-/* REDUCER USED IN PlaceOrder COMPONENT TO STORE ORDER DETAILS */
+/* this reducer is used at the PlaceOrder component to store the order's details */
 export const orderDetailsReducer = (
   state = { loading: true, orderItems: [], shippingAddress: {} },
   action
@@ -82,7 +82,7 @@ export const orderDetailsReducer = (
   }
 };
 
-/* REDUCER USED IN OrderScreen COMPONENT TO MAKE PAYMENT */
+/* this reducer is used at the OrderScreen component to perform payment */
 export const orderPayReducer = (state = {}, action) => {
   switch (action.type) {
     case ORDER_PAY_REQUEST:
@@ -110,7 +110,9 @@ export const orderPayReducer = (state = {}, action) => {
   }
 };
 
-/* REDUCER USED TO GET DATA OF ALL THE ORDERS PLACED BY USER IN ProfileScreen COMPONENT */
+
+/* this reducer is used to get data from all the orders placed by a specific user at the ProfileScreen component */
+
 export const orderListMyReducer = (state = { orders: [] }, action) => {
   switch (action.type) {
     case ORDER_LIST_MY_REQUEST:
@@ -130,7 +132,7 @@ export const orderListMyReducer = (state = { orders: [] }, action) => {
         error: action.payload,
       };
 
-    // WHEN USER LOGS OUT WE WANT ALL DATA REGARDING ORDERS TO BE RESET AS WELL
+    // this will reset the order list's data when a user logs out
     case ORDER_LIST_MY_RESET:
       return { orders: [] };
 
@@ -139,7 +141,8 @@ export const orderListMyReducer = (state = { orders: [] }, action) => {
   }
 };
 
-/* REDUCER USED TO GET DATA OF ALL THE ORDERS PLACED BY ALL USERS IN OrderListScreen COMPONENT */
+
+/* this reducer is used to get data from all the orders placed by all the users at the OrderListScreen component */
 export const orderListReducer = (state = { orders: [] }, action) => {
   switch (action.type) {
     case ORDER_LIST_REQUEST:
@@ -164,7 +167,7 @@ export const orderListReducer = (state = { orders: [] }, action) => {
   }
 };
 
-/* REDUCER USED IN OrderScreen COMPONENT TO MAKE STATUS OF DELIVERY */
+/* this reducer is used at OrderScreen component to create a new delivary status */
 export const orderDeliverReducer = (state = {}, action) => {
   switch (action.type) {
     case ORDER_DELIVER_REQUEST:

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-/* AXIOS */
+/* axios */
 import axios from "axios";
 
-/* REACT ROUTER */
+/* react router */
 import { Link } from "react-router-dom";
 
-/* REACT BOOTSTRAP */
+/* react bootstrap */
 import { Button, Form } from "react-bootstrap";
 
-/* COMPONENTS */
+/* component */
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
