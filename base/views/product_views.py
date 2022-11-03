@@ -123,7 +123,7 @@ def uploadImage(request):
     product.save()
     return Response("Image was uploaded")
 
-
+# create review
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def createProductReview(request, pk):
