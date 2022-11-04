@@ -1,9 +1,9 @@
 <h1 align="center">Frontend of E-Commerce Website</h1>
 <h2 align="center">Designed Using React</h2>
 
-## TOOLS USED:
+## Tools used:
 
-- USED `REACT-BOOTSTRAP` & `REACT-ROUTER-BOOTSTRAP` FOR STYLING
-- USED BOOTSWATCH THEME - `LUX`
-- USED `FONT AWESOME` ICONS
-- USED `REACT PAYPAL BUTTON V2` FOR PAYPAL BUTTONS
+- `react bootstrap` & `react router bootsrtap` for styling
+- bootswatch theme - `LUX`
+-  icons- `FONT AWESOME`
+- paypal- `paypal button 2`
